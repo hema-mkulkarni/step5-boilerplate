@@ -1,10 +1,8 @@
 package com.stackroute.activitystream.test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import javax.transaction.Transactional;
-import org.hibernate.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,19 +16,18 @@ import com.stackroute.activitystream.config.PersistenceJPAConfig;
 import com.stackroute.activitystream.model.User;
 import com.stackroute.activitystream.service.UserService;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @Transactional
-@ContextConfiguration(classes = { ApplicationContextConfig.class,PersistenceJPAConfig.class })
+@ContextConfiguration(classes = { ApplicationContextConfig.class, PersistenceJPAConfig.class })
 public class UserAuthTest {
 
 	@Autowired
 	private UserService userService;
 
-/*
-	@Autowired
-	private SessionFactory sessionFactory;*/
+	/*
+	 * @Autowired private SessionFactory sessionFactory;
+	 */
 
 	@Before
 	public void setup() {
@@ -40,7 +37,7 @@ public class UserAuthTest {
 		if (userService.get("will") != null) {
 			userService.delete(userService.get("will"));
 		}
-		
+
 		User testUser = new User();
 		testUser.setName("John");
 		testUser.setPassword("password");
@@ -57,21 +54,23 @@ public class UserAuthTest {
 
 	@After
 	public void teardown() {
-		
+
 	}
 
 	@Test
 	public void testUserAuthentication() {
-		
-		assertNotNull("Authentication failed for legitimate user.", userService.validate("john","password"));
-		
+
+		assertNotNull("Authentication failed for legitimate user.", userService.validate("john", "password"));
+
 	}
 
 	@Test
 	public void testUserAuthenticationFailure() {
 
-		assertNotEquals("Authentication logic is not correct. Please check. User with incorrect password is also being logged in", true,userService.validate("john","password2"));
-		
+		assertNotEquals(
+				"Authentication logic is not correct. Please check. User with incorrect password is also being logged in",
+				true, userService.validate("john", "password2"));
+
 	}
 
 }

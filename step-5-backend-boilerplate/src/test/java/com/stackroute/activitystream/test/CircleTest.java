@@ -18,8 +18,6 @@ import com.stackroute.activitystream.model.User;
 import com.stackroute.activitystream.service.CircleService;
 import com.stackroute.activitystream.service.UserService;
 
-
-
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
 @Transactional
@@ -107,16 +105,15 @@ public class CircleTest {
 
 		assertNotNull("Creation of circle with the same name as of an existing circle successful",
 				circleService.getAllCircles());
-		
+
 	}
-	
+
 	@Test
 	public void testGetAllCirclesWithSearchString() {
 
-		assertNotNull("Retrieval of all circles unsuccessful",
-				circleService.getAllCircles("Java"));
+		assertNotNull("Retrieval of all circles unsuccessful", circleService.getAllCircles("Java"));
 	}
-	
+
 	@Test
 	public void testGetAllCirclesWithSearchStringFailure() {
 

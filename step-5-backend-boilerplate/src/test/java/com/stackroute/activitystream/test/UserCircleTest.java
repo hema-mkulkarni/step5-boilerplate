@@ -16,35 +16,24 @@ import com.stackroute.activitystream.config.ApplicationContextConfig;
 import com.stackroute.activitystream.config.PersistenceJPAConfig;
 import com.stackroute.activitystream.model.Circle;
 import com.stackroute.activitystream.model.User;
-import com.stackroute.activitystream.model.UserCircle;
 import com.stackroute.activitystream.repository.CircleRepository;
-import com.stackroute.activitystream.repository.UserCircleRepository;
 import com.stackroute.activitystream.repository.UserRepository;
-import com.stackroute.activitystream.serviceimpl.UserCircleServiceImpl;
+import com.stackroute.activitystream.service.UserCircleService;
 
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
 @Transactional
-@ContextConfiguration(classes = { ApplicationContextConfig.class,PersistenceJPAConfig.class })
+@ContextConfiguration(classes = { ApplicationContextConfig.class, PersistenceJPAConfig.class })
 public class UserCircleTest {
 
 	@Autowired
 	private UserRepository userRepository;
-	
-	@Autowired
-	private UserCircleRepository userCircleRepository;
 
 	@Autowired
 	private CircleRepository circleRepository;
-	
-	@Autowired
-	private UserCircleServiceImpl userCircleService;
 
 	@Autowired
-	private Circle circle;
-	
-	@Autowired
-	private UserCircle userCircle;
+	private UserCircleService userCircleService;
 
 	@Before
 	public void setup() {
@@ -82,53 +71,53 @@ public class UserCircleTest {
 
 	@Test
 	public void testAddUserToCircle() {
-		
-		assertEquals("Adding user to circle failed",true,userCircleService.addUser("john","Java"));
-		
+
+		assertEquals("Adding user to circle failed", true, userCircleService.addUser("john", "Java"));
+
 	}
-	
+
 	@Test
 	public void testAddUserToCircleInvalidUserFailure() {
 
-		assertEquals("Adding user to circle failed",false,userCircleService.addUser("chris", "Java"));
-		
+		assertEquals("Adding user to circle failed", false, userCircleService.addUser("chris", "Java"));
+
 	}
 
 	@Test
 	public void testAddUserToCircleInvalidCircleFailure() {
 
-		assertEquals("Adding user to circle failed",false,userCircleService.addUser("john", "Spring"));
-		
+		assertEquals("Adding user to circle failed", false, userCircleService.addUser("john", "Spring"));
+
 	}
-	
+
 	@Test
 	public void testRemoveUserFromCircle() {
 		userCircleService.addUser("john", "Java");
-		assertEquals("Removing user from circle failed",true,userCircleService.removeUser("john", "Java"));
-		
+		assertEquals("Removing user from circle failed", true, userCircleService.removeUser("john", "Java"));
+
 	}
-	
+
 	@Test
 	public void testRemoveUserFromCircleInvalidUserFailure() {
 
-		assertEquals("Removing user from circle failed",false,userCircleService.removeUser("chris", "Java"));
-		
+		assertEquals("Removing user from circle failed", false, userCircleService.removeUser("chris", "Java"));
+
 	}
 
 	@Test
 	public void testRemoveUserFromCircleInvalidCircleFailure() {
 
-		assertEquals("Removing user from circle failed",false,userCircleService.removeUser("john", "Spring"));
-		
+		assertEquals("Removing user from circle failed", false, userCircleService.removeUser("john", "Spring"));
+
 	}
-	
+
 	@Test
 	public void testUserSubscriptionToCircle() {
 		userCircleService.addUser("john", "Java");
-		List<String> userSubscription=new ArrayList<String>();
+		List<String> userSubscription = new ArrayList<String>();
 		userSubscription.add("Java");
-		assertEquals("Removing user from circle failed",userSubscription,userCircleService.getMyCircles("john"));
-		
+		assertEquals("Removing user from circle failed", userSubscription, userCircleService.getMyCircles("john"));
+
 	}
 
 }

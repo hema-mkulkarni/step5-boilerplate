@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.xml.sax.SAXException;
 import com.stackroute.activitystream.config.ApplicationContextConfig;
+import com.stackroute.activitystream.config.PersistenceJPAConfig;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.spi.ILoggingEvent;
@@ -22,7 +23,7 @@ import ch.qos.logback.core.FileAppender;
 import ch.qos.logback.core.joran.util.ConfigurationWatchListUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { ApplicationContextConfig.class })
+@ContextConfiguration(classes = { ApplicationContextConfig.class, PersistenceJPAConfig.class })
 @WebAppConfiguration
 public class LoggingTestCase {
 
